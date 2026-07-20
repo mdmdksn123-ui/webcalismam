@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kesirlerle Çarpma ve Bölme Etkinlik Kâğıdı</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX for beautiful math equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMath()"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .worksheet-container {
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen py-8 px-4">
+
+    <!-- TOP CONTROL BAR (no-print) -->
+    <div class="max-w-4xl mx-auto mb-6 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-4 justify-between items-center no-print">
+        <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+            <span class="text-sm font-semibold text-slate-600">6. Sınıf Kesirlerde Çarpma ve Bölme</span>
+        </div>
+        <div class="flex gap-3">
+            <button onclick="toggleTeacherMode()" id="teacher-btn" class="px-4 py-2 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium text-sm transition-colors flex items-center gap-2">
+                👁️ Öğretmen Modu (Cevap Anahtarı)
+            </button>
+            <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-medium text-sm transition-colors flex items-center gap-2">
+                🖨️ Etkinlik Kâğıdını Yazdır (A4)
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN WORKSHEET -->
+    <div class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-2xl shadow-lg p-8 worksheet-container relative overflow-hidden">
+        
+        <!-- MEB Header style -->
+        <div class="border-b-2 border-slate-800 pb-6 mb-6">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                        KESİRLERLE ÇARPMA VE BÖLME ETKİNLİK KÂĞIDI
+                    </h1>
+                    <p class="text-slate-500 text-sm mt-1">Zeynep ve Mert'in İleri Dönüşüm Atölyesi </p>
+
+            </div>
+
+            <!-- Student Info Fields Box -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 bg-slate-50 p-4 rounded-xl border border-slate-100 text-sm">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase">Öğrencinin Adı Soyadı</label>
+                    <input type="text" placeholder="......................................................" class="bg-transparent border-none focus:ring-0 p-0 text-slate-800 font-medium mt-1 w-full placeholder-slate-300">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase">Sınıfı / Şubesi / Numarası</label>
+                    <input type="text" placeholder="......................................................" class="bg-transparent border-none focus:ring-0 p-0 text-slate-800 font-medium mt-1 w-full placeholder-slate-300">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase">Uygulama Tarihi</label>
+                    <input type="text" placeholder="..... / ..... / 2026" class="bg-transparent border-none focus:ring-0 p-0 text-slate-800 font-medium mt-1 w-full placeholder-slate-300">
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTEXT HEADER -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl mb-8">
+            <h3 class="font-bold text-amber-800 mb-2 flex items-center gap-2">
+            </h3>
+            <p class="text-amber-950 text-sm leading-relaxed">
+                Zeynep ve Mert, okul şenliğinde sürdürülebilirlik farkındalığı yaratmak için atık kumaş rulo parçalarını değerlendirdikleri bir "İleri Dönüşüm Tasarım Atölyesi" kuruyorlar. Atölyede şenlik alanı süslemesi için flamalar ve hediye paketleri için dekoratif fiyonk şeritleri hazırlayacaklar.
+            </p>
+        </div>
+
+        <!-- QUESTION 1 -->
+        <div class="mb-10">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="px-2.5 py-1 bg-emerald-500 text-white font-bold rounded-lg text-xs">GÖREV 1</span>
+                
+            </div>
+            
+            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                Zeynep, elindeki büyük yeşil kumaş rulosunu incelediğinde, rulonun tamamının değil, sadece $\frac{4}{5}$'ünün kaldığını görüyor. Şenlik alanına asmak için bu mevcut kumaşın da $\frac{2}{3}$'sini kesip üzerine renkli desenler çizerek flama yapıyor. Zeynep bu süreci matematiksel olarak göstermek için aşağıdaki alan modelini çiziyor:
+            </p>
+
+            <!-- SVG AREA MODEL -->
+            <div class="flex justify-center my-6">
+                <div class="w-full max-w-lg bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="text-center text-xs font-bold text-slate-500 mb-2">YEŞİL KUMAŞ RULOSU ALAN MODELİ</p>
+                    <svg viewBox="0 0 500 320" class="w-full h-auto">
+                        <!-- Definitions for patterns -->
+                        <defs>
+                            <pattern id="hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                                <line x1="0" y1="0" x2="0" y2="10" stroke="#f97316" stroke-width="2" />
+                            </pattern>
+                        </defs>
+
+                        <!-- Outer Roll Grid -->
+                        <rect x="10" y="30" width="480" height="240" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+                        
+                        <!-- Columns (5 Columns) -->
+                        <!-- Col 1 (Unusable - Gray) -->
+                        <rect x="10" y="30" width="96" height="240" fill="#e2e8f0" opacity="0.7"/>
+                        <!-- Cols 2-5 (Available Greenish-Blue) -->
+                        <rect x="106" y="30" width="384" height="240" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+
+                        <!-- Grid Lines Vertical -->
+                        <line x1="106" y1="30" x2="106" y2="270" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4"/>
+                        <line x1="202" y1="30" x2="202" y2="270" stroke="#64748b" stroke-dasharray="2"/>
+                        <line x1="298" y1="30" x2="298" y2="270" stroke="#64748b" stroke-dasharray="2"/>
+                        <line x1="394" y1="30" x2="394" y2="270" stroke="#64748b" stroke-dasharray="2"/>
+
+                        <!-- Grid Lines Horizontal -->
+                        <line x1="10" y1="110" x2="490" y2="110" stroke="#64748b" stroke-width="2"/>
+                        <line x1="10" y1="190" x2="490" y2="190" stroke="#64748b" stroke-dasharray="2"/>
+
+                        <!-- Hatching for the selected 2/3 of the 4/5 (Flag Area) -->
+                        <!-- Spans Row 1 & 2 (y:30 to 190) and Col 2-5 (x:106 to 490) -->
+                        <rect x="106" y="30" width="384" height="160" fill="url(#hatch)" opacity="0.3"/>
+
+                        <!-- Interactive labels inside cells -->
+                        <g font-size="11" font-weight="bold" fill="#15803d">
+                            <!-- Column 1 Unused labels -->
+                            <text x="58" y="140" text-anchor="middle" fill="#64748b">Boş</text>
+                            <text x="58" y="160" text-anchor="middle" fill="#64748b">Kısım</text>
+                            
+                            <!-- Available cols -->
+                            <text x="154" y="70" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                            <text x="250" y="70" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                            <text x="346" y="70" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                            <text x="442" y="70" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+
+                            <text x="154" y="150" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                            <text x="250" y="150" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                            <text x="346" y="150" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                            <text x="442" y="150" text-anchor="middle" fill="#c2410c">[FLAMA]</text>
+                        </g>
+
+                        <!-- Brackets/Explanations -->
+                        <!-- Available fabric width 4/5 -->
+                        <path d="M 106 280 L 106 290 L 298 290 L 298 295 L 298 290 L 490 290 L 490 280" fill="none" stroke="#22c55e" stroke-width="2"/>
+                        <text x="298" y="310" text-anchor="middle" fill="#15803d" font-size="12" font-weight="bold">Mevcut Kumaş Rulosu (4/5)</text>
+
+                        <!-- Vertical Cut Bracket 2/3 -->
+                        <path d="M 5 30 L -5 30 L -5 110 L -10 110 L -5 110 L -5 190 L 5 190" fill="none" stroke="#f97316" stroke-width="2" transform="translate(10, 0)"/>
+                        <text x="15" y="115" text-anchor="end" fill="#ea580c" font-size="12" font-weight="bold" transform="rotate(-90 15 115) translate(-30, -25)">Yatay Kesim (2/3)</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Question Stem -->
+            <div class="text-sm font-semibold text-slate-800 bg-slate-50 p-4 rounded-xl border border-slate-100 mb-4 leading-relaxed">
+                <strong>Soru 1:</strong> Zeynep, çizdiği bu model üzerinden atölyedeki arkadaşlarına şu iddiada bulunuyor:
+                <p class="italic font-medium text-indigo-700 bg-indigo-50/50 p-3 rounded-lg border border-indigo-100 my-2">
+                    "Çocuklar, modelime bakın! Başlangıçta rulo kumaşımızın kullanılmayan beyaz sütununu da hesaba katarsak, tüm rulo 15 küçük eş kareye bölünmüş oldu. Benim flama için kestiğim kısım ise bu karelerden tam 8 tanesini kaplıyor. Dolayısıyla, flama için kullandığım kumaş tüm rulonun \(\frac{8}{15}\)'ine eşittir."
+                </p>
+                Zeynep'in bu iddiası ve kullandığı model hakkında yapılan aşağıdaki değerlendirmelerden hangisi doğrudur?
+            </div>
+
+            <!-- Choices -->
+            <div class="space-y-3 pl-2">
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 1)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">A</span>
+                    <p class="leading-relaxed">Zeynep'in iddiası yanlıştır; çünkü kullanılmayan beyaz kısım hesaba katılmamalıdır. Flama kumaşı sadece mevcut yeşil alan üzerinden hesaplanmalı ve \(\frac{8}{12}\) olarak gösterilmelidir.</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm correct-option-row" onclick="selectOption(this, 1, true)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">B</span>
+                    <p class="leading-relaxed">Zeynep'in iddiası doğrudur; çünkü \(\frac{4}{5} \times \frac{2}{3}\) işlemi yapılırken paydaların çarpımı (\(5 \times 3 = 15\)) bütünün toplamda \(15\) yeni birime bölündüğünü, payların çarpımı (\(4 \times 2 = 8\)) ise bu yeni birimlerden \(8\)'inin kullanıldığını gösterir.</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 1)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">C</span>
+                    <p class="leading-relaxed">Zeynep'in iddiası yanlıştır; çünkü yatay kesimle oluşan parçaların her biri dikey kesimle oluşan parçalardan daha büyüktür ve farklı büyüklükteki birimler aynı payda altında toplanamaz.</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 1)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">D</span>
+                    <p class="leading-relaxed">Zeynep'in iddiası doğrudur; çünkü çarpma işlemi yapmak kumaşın toplam alanını genişletmiş, dikey ve yatay kesim çizgileri birleşerek başlangıçtaki mevcut kumaş miktarını sayısal olarak artırmıştır.</p>
+                </div>
+            </div>
+
+            <!-- Teacher Mode Feedback 1 -->
+            <div class="teacher-feedback hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-950 leading-relaxed">
+                <strong>💡 Öğretmen Analiz Notu:</strong> 
+                Doğru cevap <strong>B</strong>'dir. Çeldiriciler, kesirlerle çarpmada referans bütünü kaydırma (A seçeneği) ve birimsel büyüklük kargaşası (C seçeneği) gibi literatürde sık görülen kavram yanılgılarını hedeflemektedir.
+            </div>
+        </div>
+
+        <div class="page-break my-8 border-t border-slate-200"></div>
+
+        <!-- QUESTION 2 -->
+        <div class="mb-10">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="px-2.5 py-1 bg-blue-500 text-white font-bold rounded-lg text-xs">GÖREV 2</span>
+                
+            </div>
+
+            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                Mert ise masada duran $\frac{3}{4} \text{ metrelik}$ mavi renkli atık bir şeridi alıyor. Bu şeridi, her biri bütün bir şeridin $\frac{5}{8}$'i kadar olan dekoratif fiyonk şeritlerine bölmek istiyor. Mert, kesme işlemini zihninde canlandırmak için orijinal $1 \text{ metrelik}$ şerit bütününü $8$ eş parçaya bölerek aşağıdaki modeli çiziyor ve elindeki $6$ parçadan $5$'ini birleştirerek $1$ tam fiyonk şeridi yapıyor.
+            </p>
+
+            <!-- SVG TAPE MODEL -->
+            <div class="flex justify-center my-6">
+                <div class="w-full max-w-lg bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="text-center text-xs font-bold text-slate-500 mb-2">MAVİ ŞERİT ÖLÇÜM MODELİ (1 Metre)</p>
+                    <svg viewBox="0 0 500 165" class="w-full h-auto">
+                        <!-- Base Grid 8 units -->
+                        <!-- Gray / Empty spaces (Dashed outline for parts 7 & 8) -->
+                        <rect x="10" y="60" width="480" height="40" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5"/>
+                        
+                        <!-- Col 1 to 6 (Available Mavi Şerit - 3/4 m = 6/8 m) -->
+                        <rect x="10" y="60" width="360" height="40" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+
+                        <!-- Vertical Tick marks for 8 divisions -->
+                        <line x1="70" y1="60" x2="70" y2="100" stroke="#94a3b8"/>
+                        <line x1="130" y1="60" x2="130" y2="100" stroke="#94a3b8"/>
+                        <line x1="190" y1="60" x2="190" y2="100" stroke="#94a3b8"/>
+                        <line x1="250" y1="60" x2="250" y2="100" stroke="#94a3b8"/>
+                        <line x1="310" y1="60" x2="310" y2="100" stroke="#94a3b8"/>
+                        <line x1="370" y1="60" x2="370" y2="100" stroke="#94a3b8" stroke-width="1.5"/>
+                        <line x1="430" y1="60" x2="430" y2="100" stroke="#94a3b8" stroke-dasharray="2"/>
+
+                        <!-- Numbers inside units -->
+                        <g font-size="12" font-weight="bold" fill="#1e3a8a" text-anchor="middle">
+                            <text x="40" y="85">1</text>
+                            <text x="100" y="85">2</text>
+                            <text x="160" y="85">3</text>
+                            <text x="220" y="85">4</text>
+                            <text x="280" y="85">5</text>
+                            <text x="340" y="85">6</text>
+                            <text x="400" y="85" fill="#94a3b8">7</text>
+                            <text x="460" y="85" fill="#94a3b8">8</text>
+                        </g>
+
+                        <!-- Available Ribbon Bracket -->
+                        <path d="M 10 108 L 10 118 L 190 118 L 190 123 L 190 118 L 370 118 L 370 108" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+                        <text x="190" y="135" text-anchor="middle" fill="#1d4ed8" font-size="11" font-weight="bold">Mevcut Şerit (3/4 m = 6 parça)</text>
+
+                        <!-- Target Fiyonk Bracket (5 parts) -->
+                        <path d="M 10 52 L 10 42 L 160 42 L 160 37 L 160 42 L 310 42 L 310 52" fill="none" stroke="#b91c1c" stroke-width="1.5"/>
+                        <text x="160" y="32" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="bold">1 Tam Fiyonk Porsiyonu (5/8 m = 5 parça)</text>
+
+                        <!-- Remaining piece label -->
+                        <path d="M 310 52 L 310 42 L 340 42 L 340 37 L 340 42 L 370 42 L 370 52" fill="none" stroke="#d97706" stroke-width="1.5"/>
+                        <text x="340" y="32" text-anchor="middle" fill="#b45309" font-size="11" font-weight="bold">Kalan (1 parça)</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Question Stem -->
+            <div class="text-sm font-semibold text-slate-800 bg-slate-50 p-4 rounded-xl border border-slate-100 mb-4 leading-relaxed">
+                <strong>Soru 2:</strong> Mert ve atölyedeki arkadaşı Ali, kesim sonrası eldeki <strong>artan 1 parça mavi şeridin</strong> değeri hakkında tartışıyorlar:
+                <ul class="list-disc list-inside space-y-1.5 my-3 text-slate-700 pl-2">
+                    <li><strong>Mert:</strong> <span class=>"Elimde kalan bu 1 parça mavi şerit, yaptığımız fiyonk şeridinin </strong>\(\frac{1}{5}\)</strong>'ini temsil ediyor."</span></li>
+                    <li><strong>Ali:</strong> <span class=>"Hayır Mert, o parça orijinal 1 metrelik şeridimizin \(\frac{1}{8}\)'idir. Dolayısıyla kalan kısım \(\frac{1}{8}\) fiyonk şerididir."</span></li>
+                </ul>
+                Mert'in çizdiği model dikkate alındığında, bu tartışmadaki haklılık durumu ve bilimsel gerekçesi aşağıdakilerden hangisinde doğru olarak verilmiştir?
+            </div>
+
+            <!-- Choices -->
+            <div class="space-y-3 pl-2">
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 2)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">A</span>
+                    <p class="leading-relaxed">Ali haklıdır; çünkü bölme işleminin sonucundaki kalan kısım, her zaman probleme en baştaki bütüne göre ifade edilmek zorundadır.</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 2)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">B</span>
+                    <p class="leading-relaxed">Her ikisi de haksızdır; çünkü eldeki mevcut şerit 6 parçadan oluştuğu için kalan 1 parça, eldeki şeridin \(\frac{1}{6}\)'sıdır ve bölme işleminin kalanı \(\frac{1}{6}\) olmalıdır.</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm correct-option-row" onclick="selectOption(this, 2, true)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">C</span>
+                    <p class="leading-relaxed">Mert haklıdır; çünkü çünkü bölme işleminde artan parçanın neyi temsil ettiği, başlangıçtaki metreye göre değil, yapmaya çalıştığımız fiyonkun büyüklüğüne göre söylenmelidir. 1 tam fiyonk yapmak için 5 parça gerektiğinden, elimizdeki bu son 1 parça o fiyonkun \(\frac{1}{5}\)'ini temsil eder.</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 2)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">D</span>
+                    <p class="leading-relaxed">Ali haklıdır; çünkü ortak payda algoritmasında (\(\frac{6}{8} \div \frac{5}{8}\)), paydalar eşitlendikten sonra paydaların hiçbir matematiksel rolü kalmaz ve kalan doğrudan \(\frac{1}{8}\) olarak kalır.</p>
+                </div>
+            </div>
+
+            <!-- Teacher Mode Feedback 2 -->
+            <div class="teacher-feedback hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-950 leading-relaxed">
+                <strong>💡 Öğretmen Analiz Notu:</strong> 
+                Doğru cevap <strong>C</strong>'dir. Bu soru, kesirlerde bölme konusunun en büyük bilişsel tuzağı olan <strong>"Birim Kayması"</strong> kavramını ölçer. 
+            </div>
+        </div>
+
+        <div class="page-break my-8 border-t border-slate-200"></div>
+
+        <!-- QUESTION 3 -->
+        <div class="mb-10">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="px-2.5 py-1 bg-amber-500 text-white font-bold rounded-lg text-xs">GÖREV 3</span>
+                
+            </div>
+
+            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                Atölye çalışmalarını tamamlayan Zeynep ve Mert, yaptıkları iki çalışmanın modellerini yan yana koyarak sınıfa sunuyorlar:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                <div class="p-4 bg-emerald-50/50 border border-emerald-100 rounded-xl text-sm">
+                    <span class="font-bold text-emerald-800">Zeynep'in işlemi:</span>
+                    <p class="text-lg font-bold text-emerald-950 mt-1">\(\frac{4}{5} \times \frac{2}{3} = \frac{8}{15}\)</p>
+                    <p class="text-xs text-slate-500 mt-1">(Sonuç başlangıçtaki \(\frac{4}{5}\)'ten <strong>küçük</strong>)</p>
+                </div>
+                <div class="p-4 bg-blue-50/50 border border-blue-100 rounded-xl text-sm">
+                    <span class="font-bold text-blue-800">Mert'in işlemi:</span>
+                    <p class="text-lg font-bold text-blue-950 mt-1">\(\frac{3}{4} \div \frac{5}{8} = \frac{6}{5}\)</p>
+                    <p class="text-xs text-slate-500 mt-1">(Sonuç başlangıçtaki \(\frac{3}{4}\)'ten <strong>büyük</strong>)</p>
+                </div>
+            </div>
+
+            <!-- Question Stem -->
+            <div class="text-sm font-semibold text-slate-800 bg-slate-50 p-4 rounded-xl border border-slate-100 mb-4 leading-relaxed">
+                <strong>Soru 3:</strong> Öğretmen, sınıftaki öğrencilere şu soruyu yöneltiyor:
+                <p class="font-medium text-indigo-700 bg-indigo-50/50 p-3 rounded-lg border border-indigo-100 my-2">
+                    "Çocuklar, doğal sayılarda çarpma her zaman büyütür, bölme ise küçültürdü. Ancak Zeynep ve Mert'in modellerinde tam tersi gerçekleşti. Çarpmada sonuç küçülürken, bölmede sonuç büyüdü. Çizilen bu iki modeli inceleyerek bu durumun sebebini nasıl açıklarsınız?"
+                </p>
+                Sınıftaki öğrencilerden hangisinin yaptığı <strong>açıklama, çizilen modellerin temsil ettiği matematiksel ilişkileri tam ve doğru bir şekilde açıklamaktadır?</strong>
+            </div>
+
+            <!-- Choices -->
+            <div class="space-y-3 pl-2">
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 3)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">A</span>
+                    <p class="leading-relaxed"><strong>Selin:</strong> "Zeynep'in modelinde iki kesrin kesişim alanını aldığımız için alan küçülmüştür; Mert'in modelinde ise elimizdeki yarım şeridin içinde, kendisinden daha küçük olan \(\frac{5}{8}\)'lik porsiyonlardan kaç tane sığabileceğini ölçtüğümüz için parça sayısı (sonucumuz) büyümüştür."</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm correct-option-row" onclick="selectOption(this, 3, true)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">B</span>
+                    <p class="leading-relaxed"><strong>Burak:</strong> "Basit kesirle çarpmak bir miktarın 'parçasının parçasını' bulmaktır, bu yüzden değer küçülür; basit bir kesre bölmek ise elimizdeki miktarı 'kendinden daha küçük' porsiyonlarla ölçmektir, bu yüzden elde edilen porsiyon sayısı (sonuç) her zaman büyür."</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 3)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">C</span>
+                    <p class="leading-relaxed"><strong>Can:</strong> "Zeynep katı bir nesne olan kumaşı kestiği için alan küçülmüştür; Mert ise sıvı bir ölçüm gibi şeridi parçalara ayırdığı için toplam parça sayısı artmış ve sonuç büyük çıkmıştır."</p>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50/50 transition-colors cursor-pointer text-sm" onclick="selectOption(this, 3)">
+                    <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center font-bold text-xs bg-white text-slate-600 select-badge">D</span>
+                    <p class="leading-relaxed"><strong>Eda:</strong> "Çarpmada basit kesir kullanıldığı için sonuç sıfıra yaklaşmıştır; bölme işleminde ise basit kesri başka bir kesre bölmek her zaman tam sayılı bir kesir ürettiği için sonuç her zaman bütünden büyük olur."</p>
+                </div>
+            </div>
+
+            <!-- Teacher Mode Feedback 3 -->
+            <div class="teacher-feedback hidden mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-xl text-xs text-indigo-950 leading-relaxed">
+                <strong>💡 Öğretmen Analiz Notu: </strong> 
+                Doğru cevap <strong>B</strong>'dir. Burak'ın açıklaması, hem basit kesirlerle çarpmadaki "parçanın parçası" anlamsal ilişkisini hem de basit kesre bölmedeki "ölçme/porsiyonlama" doğasını doğru bir şekilde genellemektedir.
+            </div>
+        </div>
+
+        
+
+    <!-- Script to handle interactive choice selections and teacher mode -->
+    <script>
+        function renderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+        }
+
+        let teacherMode = false;
+
+        function toggleTeacherMode() {
+            teacherMode = !teacherMode;
+            const feedbacks = document.querySelectorAll('.teacher-feedback');
+            const teacherBtn = document.getElementById('teacher-btn');
+            
+            feedbacks.forEach(fb => {
+                if (teacherMode) {
+                    fb.classList.remove('hidden');
+                } else {
+                    fb.classList.add('hidden');
+                }
+            });
+
+            const correctRows = document.querySelectorAll('.correct-option-row');
+            correctRows.forEach(row => {
+                const badge = row.querySelector('.select-badge');
+                if (teacherMode) {
+                    row.classList.add('bg-emerald-50', 'border-emerald-300');
+                    if (badge) {
+                        badge.classList.remove('bg-white', 'text-slate-600', 'border-slate-300');
+                        badge.classList.add('bg-emerald-500', 'text-white', 'border-emerald-500');
+                    }
+                } else {
+                    row.classList.remove('bg-emerald-50', 'border-emerald-300');
+                    if (badge) {
+                        badge.classList.add('bg-white', 'text-slate-600', 'border-slate-300');
+                        badge.classList.remove('bg-emerald-500', 'text-white', 'border-emerald-500');
+                    }
+                }
+            });
+
+            if (teacherMode) {
+                teacherBtn.classList.remove('bg-indigo-50', 'text-indigo-700');
+                teacherBtn.classList.add('bg-indigo-600', 'text-white');
+                teacherBtn.innerHTML = '👁️ Öğrenci Görünümüne Dön';
+            } else {
+                teacherBtn.classList.remove('bg-indigo-600', 'text-white');
+                teacherBtn.classList.add('bg-indigo-50', 'text-indigo-700');
+                teacherBtn.innerHTML = '👁️ Öğretmen Modu (Cevap Anahtarı)';
+            }
+        }
+
+        function selectOption(element, questionId, isCorrect = false) {
+            if (teacherMode) return; // Disable student clicks in teacher mode to prevent styling confusion
+
+            // Reset other options for this question
+            const parent = element.parentElement;
+            const siblings = parent.children;
+            for (let sibling of siblings) {
+                sibling.classList.remove('bg-emerald-50', 'border-emerald-300', 'bg-rose-50', 'border-rose-300');
+                const badge = sibling.querySelector('.select-badge');
+                if (badge) {
+                    badge.classList.remove('bg-emerald-500', 'text-white', 'border-emerald-500', 'bg-rose-500', 'text-white', 'border-rose-500');
+                    badge.classList.add('bg-white', 'text-slate-600', 'border-slate-300');
+                }
+            }
+
+            // Apply selected styling
+            const badge = element.querySelector('.select-badge');
+            if (isCorrect) {
+                element.classList.add('bg-emerald-50', 'border-emerald-300');
+                if (badge) {
+                    badge.classList.remove('bg-white', 'text-slate-600', 'border-slate-300');
+                    badge.classList.add('bg-emerald-500', 'text-white', 'border-emerald-500');
+                }
+            } else {
+                element.classList.add('bg-rose-50', 'border-rose-300');
+                if (badge) {
+                    badge.classList.remove('bg-white', 'text-slate-600', 'border-slate-300');
+                    badge.classList.add('bg-rose-500', 'text-white', 'border-rose-500');
+                }
+                
+                // Highlight correct option too
+                const correctOption = parent.querySelector('.correct-option-row');
+                if (correctOption) {
+                    correctOption.classList.add('bg-emerald-50/50', 'border-emerald-200');
+                    const correctBadge = correctOption.querySelector('.select-badge');
+                    if (correctBadge) {
+                        correctBadge.classList.remove('bg-white', 'text-slate-600', 'border-slate-300');
+                        correctBadge.classList.add('bg-emerald-500/80', 'text-white', 'border-emerald-500/80');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
