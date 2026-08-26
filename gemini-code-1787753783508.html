@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fonksiyonlarda Çarpma ve Bölme İşlemleri Etkileşimli Etkinliği</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fb;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .header-top {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .theme-title {
+            color: #2980b9;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .page-num {
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        h2 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .steps-box {
+            background: #fdfefe;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .step-item {
+            margin-bottom: 8px;
+        }
+        .math-expr {
+            font-family: 'Cambria Math', Times, serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #c0392b;
+        }
+        .fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 0.9em;
+            margin: 0 2px;
+        }
+        .fraction > span {
+            display: block;
+        }
+        .fraction .numerator {
+            border-bottom: 1px solid currentColor;
+            padding: 0 2px;
+        }
+        .fraction .denominator {
+            padding: 0 2px;
+        }
+
+        /* Interactive Section Styling */
+        .interactive-panel {
+            background: #f1f4f8;
+            border: 1px solid #d1d8e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        .control-row {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .presets-group, .mode-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .preset-btn, .mode-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s, opacity 0.2s;
+            font-size: 0.9em;
+        }
+        .preset-btn:hover, .mode-btn:hover {
+            background: #2980b9;
+        }
+        .mode-btn {
+            background: #7f8c8d;
+        }
+        .mode-btn.active {
+            background: #2c3e50;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .sliders-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .slider-control {
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #e1e8ed;
+        }
+        .slider-control label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        .slider-control input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .workspace-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dcdde1;
+        }
+        .eq-display {
+            font-size: 0.95em;
+            background: #fafbfc;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e1e8ed;
+            margin-bottom: 10px;
+        }
+        .graph-container {
+            width: 100%;
+            height: 240px;
+            background: #fff;
+            border: 1px solid #bdc3c7;
+            position: relative;
+        }
+        .footer-note {
+            margin-top: 25px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <p>Aşağıda verilen sürgüleri değiştirerek farklı değerlerin fonksiyonlarda çarpma ve bölme işlemlerinde oluşturduğu yapısal değişiklikleri inceleyiniz.</p>
+
+    <div class="interactive-panel">
+        <div class="control-row">
+            <div class="presets-group">
+                <strong>Hazır Değer Setleri:</strong>
+                <button class="preset-btn" onclick="setPreset(0,0,2, 0,2,-1)">a</button>
+                <button class="preset-btn" onclick="setPreset(0,2,-3, 0,-1,5)">b</button>
+                <button class="preset-btn" onclick="setPreset(1,-1,2, 0,3,-4)">c</button>
+                <button class="preset-btn" onclick="setPreset(2,0,1, -1,1,0)">ç</button>
+            </div>
+            <div class="mode-group">
+                <strong>İşlem:</strong>
+                <button class="mode-btn active" id="btn-mode-all" onclick="setMode('all')">Tümü</button>
+                <button class="mode-btn" id="btn-mode-mul" onclick="setMode('mul')">Yalnız Çarpma</button>
+                <button class="mode-btn" id="btn-mode-div" onclick="setMode('div')">Yalnız Bölme</button>
+            </div>
+        </div>
+
+        <div class="sliders-grid">
+            <div class="slider-control">
+                <label><span>a:</span> <span id="val-a">0</span></label>
+                <input type="range" id="slider-a" min="-3" max="3" step="1" value="0" oninput="updateSliders()">
+            </div>
+            <div class="slider-control">
+                <label><span>b:</span> <span id="val-b">0</span></label>
+                <input type="range" id="slider-b" min="-3" max="3" step="1" value="0" oninput="updateSliders()">
+            </div>
+            <div class="slider-control">
+                <label><span>c:</span> <span id="val-c">2</span></label>
+                <input type="range" id="slider-c" min="-5" max="5" step="1" value="2" oninput="updateSliders()">
+            </div>
+            <div class="slider-control">
+                <label><span>m:</span> <span id="val-m">0</span></label>
+                <input type="range" id="slider-m" min="-3" max="3" step="1" value="0" oninput="updateSliders()">
+            </div>
+            <div class="slider-control">
+                <label><span>n:</span> <span id="val-n">2</span></label>
+                <input type="range" id="slider-n" min="-3" max="3" step="1" value="2" oninput="updateSliders()">
+            </div>
+            <div class="slider-control">
+                <label><span>k:</span> <span id="val-k">-1</span></label>
+                <input type="range" id="slider-k" min="-5" max="5" step="1" value="-1" oninput="updateSliders()">
+            </div>
+        </div>
+
+        <div class="workspace-display">
+            <div>
+                <div class="eq-display" id="equations-text">
+                    <strong>f(x)</strong> = 2<br>
+                    <strong>g(x)</strong> = 2x - 1<br>
+                    <strong>(f &middot; g)(x)</strong> = 4x - 2<br>
+                    <strong><span class="fraction"><span class="numerator">f</span><span class="denominator">g</span></span>(x)</strong> = 2 / (2x - 1)
+                </div>
+                <div style="font-size:0.85em; color:#7f8c8d; text-align:center;" id="legend-text">Koordinat Sistemi (f(x): Mavi, g(x): Yeşil, Çarpım: Kırmızı, Bölüm: Mor)</div>
+            </div>
+            <div>
+                <svg id="graph" class="graph-container" viewBox="0 0 300 240"></svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentMode = 'all'; // 'all', 'mul', 'div'
+
+function setPreset(a, b, c, m, n, k) {
+    document.getElementById('slider-a').value = a;
+    document.getElementById('slider-b').value = b;
+    document.getElementById('slider-c').value = c;
+    document.getElementById('slider-m').value = m;
+    document.getElementById('slider-n').value = n;
+    document.getElementById('slider-k').value = k;
+    updateSliders();
+}
+
+function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-mode-' + mode).classList.add('active');
+    
+    const legend = document.getElementById('legend-text');
+    if (mode === 'all') {
+        legend.innerText = "Koordinat Sistemi (f(x): Mavi, g(x): Yeşil, Çarpım: Kırmızı, Bölüm: Mor)";
+    } else if (mode === 'mul') {
+        legend.innerText = "Koordinat Sistemi (f(x): Mavi, g(x): Yeşil, Çarpım: Kırmızı)";
+    } else if (mode === 'div') {
+        legend.innerText = "Koordinat Sistemi (f(x): Mavi, g(x): Yeşil, Bölüm: Mor)";
+    }
+    
+    updateSliders();
+}
+
+function updateSliders() {
+    const a = parseFloat(document.getElementById('slider-a').value);
+    const b = parseFloat(document.getElementById('slider-b').value);
+    const c = parseFloat(document.getElementById('slider-c').value);
+    const m = parseFloat(document.getElementById('slider-m').value);
+    const n = parseFloat(document.getElementById('slider-n').value);
+    const k = parseFloat(document.getElementById('slider-k').value);
+
+    document.getElementById('val-a').innerText = a;
+    document.getElementById('val-b').innerText = b;
+    document.getElementById('val-c').innerText = c;
+    document.getElementById('val-m').innerText = m;
+    document.getElementById('val-n').innerText = n;
+    document.getElementById('val-k').innerText = k;
+
+    let fStr = formatQuad(a, b, c);
+    let gStr = formatQuad(m, n, k);
+
+    let eqHTML = `
+        <strong>f(x)</strong> = ${fStr}<br>
+        <strong>g(x)</strong> = ${gStr}<br>
+    `;
+
+    if (currentMode === 'all' || currentMode === 'mul') {
+        eqHTML += `<strong>(f &middot; g)(x)</strong> = (${fStr}) &middot; (${gStr})<br>`;
+    }
+    if (currentMode === 'all' || currentMode === 'div') {
+        eqHTML += `<strong><span class="fraction"><span class="numerator">f</span><span class="denominator">g</span></span>(x)</strong> = <span class="fraction"><span class="numerator">(${fStr})</span><span class="denominator">(${gStr})</span></span>`;
+    }
+
+    document.getElementById('equations-text').innerHTML = eqHTML;
+
+    drawGraph(a, b, c, m, n, k);
+}
+
+function formatQuad(a, b, c) {
+    let parts = [];
+    if (a !== 0) parts.push((a === 1 ? '' : (a === -1 ? '-' : a)) + 'x²');
+    if (b !== 0) parts.push((parts.length > 0 && b > 0 ? ' + ' : (b < 0 ? ' - ' : '')) + Math.abs(b) + 'x');
+    if (c !== 0 || parts.length === 0) {
+        if (parts.length > 0) {
+            parts.push(c > 0 ? ' + ' + c : ' - ' + Math.abs(c));
+        } else {
+            parts.push(c);
+        }
+    }
+    return parts.join('');
+}
+
+function drawGraph(a, b, c, m, n, k) {
+    const svg = document.getElementById('graph');
+    let svgContent = '';
+
+    svgContent += `<defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f2f6" stroke-width="1"/></pattern></defs>`;
+    svgContent += `<rect width="300" height="240" fill="url(#grid)" />`;
+    
+    const ox = 150;
+    const oy = 120;
+    const scale = 20;
+
+    svgContent += `<line x1="0" y1="${oy}" x2="300" y2="${oy}" stroke="#2c3e50" stroke-width="1.5"/>`;
+    svgContent += `<line x1="${ox}" y1="0" x2="${ox}" y2="240" stroke="#2c3e50" stroke-width="1.5"/>`;
+
+    let fPoints = [];
+    let gPoints = [];
+    let prodPoints = [];
+    let divPoints = [];
+
+    for (let px = 0; px <= 300; px += 2) {
+        let x = (px - ox) / scale;
+        let fx = a * x * x + b * x + c;
+        let gx = m * x * x + n * x + k;
+
+        let pyF = oy - fx * scale;
+        let pyG = oy - gx * scale;
+
+        if (pyF >= 0 && pyF <= 240) fPoints.push(`${px},${pyF}`);
+        if (pyG >= 0 && pyG <= 240) gPoints.push(`${px},${pyG}`);
+
+        if (currentMode === 'all' || currentMode === 'mul') {
+            let prod = fx * gx;
+            let pyProd = oy - prod * scale;
+            if (pyProd >= -100 && pyProd <= 340) prodPoints.push(`${px},${pyProd}`);
+        }
+
+        if (currentMode === 'all' || currentMode === 'div') {
+            if (Math.abs(gx) > 0.05) {
+                let div = fx / gx;
+                let pyDiv = oy - div * scale;
+                if (pyDiv >= 0 && pyDiv <= 240) divPoints.push(`${px},${pyDiv}`);
+            }
+        }
+    }
+
+    if (fPoints.length > 1) svgContent += `<polyline fill="none" stroke="#2980b9" stroke-width="2" points="${fPoints.join(' ')}"/>`;
+    if (gPoints.length > 1) svgContent += `<polyline fill="none" stroke="#27ae60" stroke-width="2" points="${gPoints.join(' ')}"/>`;
+    
+    if ((currentMode === 'all' || currentMode === 'mul') && prodPoints.length > 1) {
+        svgContent += `<polyline fill="none" stroke="#e74c3c" stroke-width="2" points="${prodPoints.join(' ')}"/>`;
+    }
+    if ((currentMode === 'all' || currentMode === 'div') && divPoints.length > 1) {
+        svgContent += `<polyline fill="none" stroke="#8e44ad" stroke-width="2" stroke-dasharray="4" points="${divPoints.join(' ')}"/>`;
+    }
+
+    svg.innerHTML = svgContent;
+}
+
+updateSliders();
+</script>
+
+</body>
+</html>
